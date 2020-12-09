@@ -11,7 +11,7 @@ class View	{
 		const addColumnsButton = this.createDiv({
 			className: 'add__columns__buttons',	
 	  });
-	  
+
 
 	}
 
