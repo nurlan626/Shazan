@@ -6,7 +6,7 @@
     },
     "extends": ["airbnb/base"],
     "rules": {
-        "semi" : "off",
+        "semi" : [2, "always"],
         "no-plusplus" : "off",
         "eol-last" : "off",
         "max-len" : ["error", 150],
