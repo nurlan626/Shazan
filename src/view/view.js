@@ -58,11 +58,11 @@ class View {
 	// }
 
 	
-	createCollumn = () => {
-		const collumnDiv = this.createDiv({className: "collumn"});
+// 	createCollumn = () => {
+// 		const collumnDiv = this.createDiv({className: "collumn"});
 
 
-	}
-}
+// 	}
+ }
 
 export default View;
