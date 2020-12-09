@@ -7,26 +7,22 @@ class View {
     init = () => {
     	this.root = document.getElementById("root");
     	this.columnAddBtn = this.createButton({
-    		className: "main-container__add-collumn",
+    		className: "main-container__add-column",
 			buttonText: "+ Add another list",
-			id: "add-collumn"
+			id: "add-column"
 		});
 
-		this.root.append(this.ColumnAddBtn);
+		this.root.append(this.columnAddBtn);
     }
 
     createButton = (props) => {
-    	const div = document.createElement("div");
     	const button = document.createElement("button");
 
     	props.className && (button.className = props.className);
     	props.buttonText && (button.innerText = props.buttonText);
     	props.id && (button.id = props.id);
-		props.className && (div.className = props.className);
-		
-    	div.append(button);
 
-    	return div;
+    	return button;
 	}
 
 	createDiv = (props) => {
@@ -38,30 +34,41 @@ class View {
 	}
 
 	createInput = (props) => {
-		const div = document.createElement("div");
 		const input = document.createElement("input");
 
-		props.className && (div.className = props.className);
 		props.className && (input.className = props.className);
 		props.id && (input.id = props.id);
-		props.type && (input.type = props.type);
 		props.autocomplete && (input.autocomplete = props.autocomplete)
 
-		div.append(input);
-
-		return div;
+		return input;
 	}
 
-	// createUl = () => {
-	// 	const ul = document.createElement("ul");
+	createUl = (props) => {
+		const ul = document.createElement("ul");
 		
-	// }
+		props.className && (ul.className = props.className);
+
+		return ul;
+	}
+
+	createLi = (props) => {
+		const li = document.createElement("li");
+
+		props.className && (li.className = props.className);
+
+		return li;
+	}
 
 	
-	createCollumn = () => {
-		const collumnDiv = this.createDiv({className: "collumn"});
-
-
+	createColumn = () => {
+		const columnDiv = this.createDiv({className: "colums-container__column"});
+		const columnHeader = this.createDiv({className: "column__column-header"});
+		const columnName = this.createInput({className: "column-header__column-name", id: "column-name", autocomplete: "off"});
+		const columnDeleteBtn = this.createButton({className: "column-header__column-delete-btn", buttonText: "X", id: "column-delete-btn"});
+		const tasksContainer = this.createUl({className: "column__tasks-container"});
+		const task = this.createLi({className: "tasks-container__task"});
+		
+		
 	}
 }
 
