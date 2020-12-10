@@ -8,7 +8,9 @@ class View {
   }
 
     init = () => {
-    	this.root = document.getElementById("root");
+		this.root = document.getElementById("root");
+		const header = this.createHeader("Shazan");
+		this.root.append(header);
 		this.column = this.createColumn();
     	this.columnAddBtn = this.createButton({className: "main-container__add-column-btn", buttonText: "+ Add another column", id: "add-column-btn"});
 		this.mainContainer = this.createDiv({className: "root__main-container"});
@@ -18,7 +20,16 @@ class View {
 		this.mainContainer.append(this.columnsContainer);
 		this.mainContainer.append(this.columnAddBtn);
 		this.root.append(this.mainContainer);
-    }
+	}
+	createHeader = (text) => {
+		const header = this.createDiv({className: "root__header"});
+		const textPlace = document.createElement("h1");
+		textPlace.innerText = text;
+
+		header.append(textPlace);
+
+		return header;
+	}
 
     createButton = (props) => {
     	const button = document.createElement("button");
