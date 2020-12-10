@@ -1,7 +1,6 @@
 class View {
   constructor() {
     this.root = null;
-	this.column = null;
 	this.columnAddBtn = null;
 	this.mainContainer = null;
 	this.columnsContainer = null;
@@ -9,16 +8,14 @@ class View {
 
     init = () => {
     	this.root = document.getElementById("root");
-		this.column = this.createColumn();
     	this.columnAddBtn = this.createButton({className: "main-container__add-column-btn", buttonText: "+ Add another column", id: "add-column-btn"});
 		this.mainContainer = this.createDiv({className: "root__main-container"});
 		this.columnsContainer = this.createDiv({className: "main-container__colums-container"});
-
-		this.columnsContainer.append(this.column);
 		this.mainContainer.append(this.columnsContainer);
 		this.mainContainer.append(this.columnAddBtn);
 		this.root.append(this.mainContainer);
-    }
+		this.columnAddBtn.addEventListener('click', this.createColumn);
+	}
 
     createButton = (props) => {
     	const button = document.createElement("button");
@@ -86,9 +83,23 @@ class View {
 		columnDiv.append(columnHeader);
 		columnDiv.append(tasksContainer);
 		columnDiv.append(taskAddBtn);
-		
+		this.columnsContainer.append(columnDiv);
+
+		columnDeleteBtn.addEventListener("click", () => {
+			columnDiv.remove();
+		})
+
+		taskDeleteBtn.addEventListener("click", () => {
+			task.remove();
+		})
+
+		// taskAddBtn.addEventListener('click', () => {
+		// 	task.add()
+		// )
+
 		return columnDiv;
 	}
 }
+
 
 export default View;
