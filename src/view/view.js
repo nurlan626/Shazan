@@ -93,7 +93,11 @@ class View {
 		this.columnsContainer.append(columnDiv);
 
 		taskAddBtn.addEventListener('click', this.createTaskBtn);
-		
+
+		columnDeleteBtn.addEventListener("click", (event) => {
+			columnDiv.remove();
+
+		})
 		return columnDiv;
 	}
 	
@@ -103,9 +107,12 @@ class View {
 		const taskName = this.createInput({className: "task__tazk-name", id: "task-name", autocomplete: "off"});
 
 		this.tasksContainer.append(task);
-		this.tasksContainer.append(taskDeleteBtn);
 		task.append(taskName);
+		task.append(taskDeleteBtn);
 
+		taskDeleteBtn.addEventListener("click", () => {
+			task.remove();
+		})
 		return this.tasksContainer;
 	}
 
