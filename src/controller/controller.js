@@ -7,8 +7,6 @@ class Controller {
 
     init = () => {
         this.view.init();
-        // this.model.delColumnFromDb('1');
-        // this.model.delTaskFromDb('1', '2')
         this.getDataFromDb();
      }
 
