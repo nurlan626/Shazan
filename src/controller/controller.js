@@ -1,27 +1,21 @@
 class Controller {
     constructor(view, model) {
-		  this.view = view;
-		  this.model = model;
+          this.view = view;
+          this.model = model;
 
     }
 
     init = () => {
-		  this.view.init();
-		  this.getModelData();
-		  this.getColumn();
-	 }
+        this.view.init();
+        this.getDataFromDb();
+     }
 
-	 getModelData  = () => {
-		const valueModal = this.model.getColumn;			
-		this.view.columnAddBtn.addEventListener('click', () => {
-			valueModal.forEach(element => {
-				this.view.createColumn(valueModal.id, valueModal.colName);
-			});
-			
-		});
-
-
-	 }
+     getDataFromDb  = () => {
+        const dataFromDb = this.model.dataBase;
+            dataFromDb.forEach(element => {
+                this.view.createColumn(element);	
+        });
+    }
 }
 
 export default Controller;
