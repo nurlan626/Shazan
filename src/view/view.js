@@ -17,12 +17,11 @@ class View {
 		this.mainContainer = this.createDiv({className: "root__main-container"});
 		this.columnsContainer = this.createDiv({className: "main-container__colums-container"});
 		
-		this.columnAddBtn.addEventListener('click', this.createColumn);
-		
 		this.mainContainer.append(this.columnsContainer);
 		this.mainContainer.append(this.columnAddBtn);
 		this.root.append(this.mainContainer);
 	}
+
 	createHeader = (text) => {
 		const header = this.createDiv({className: "root__header"});
 		const textPlace = document.createElement("h1");
@@ -45,6 +44,7 @@ class View {
 	createDiv = (props) => {
 		const div = document.createElement("div");
 
+		props.id && (div.id = props.id);
 		props.className && (div.className = props.className);
 
 		return div;
@@ -58,6 +58,16 @@ class View {
 		props.autocomplete && (input.autocomplete = props.autocomplete)
 
 		return input;
+	}
+
+	createSpan = (props) => {
+		const span = document.createElement("span");
+
+		props.className && (span.className = props.className);
+		props.id && (span.id = props.id);
+		props.text && (span.innerText = props.text);
+		
+		return span;
 	}
 
 	createUl = (props) => {
@@ -75,39 +85,47 @@ class View {
 
 		return li;
 	}
+	
 
-	createColumn = () => {
-		const columnDiv = this.createDiv({className: "colums-container__column"});
+	createColumn = (props) => {
+		
+		const columnDiv = this.createDiv({className: "colums-container__column", id: props.id });
 		const taskAddBtn = this.createButton({className: "column__add-task-btn", buttonText: "+ Add another task", id: "add-task-btn"});
-		const columnName = this.createInput({className: "column-header__column-name", id: "column-name", autocomplete: "off"});
+		// const columnName = this.createInput({className: "column-header__column-name", id: "column-name", autocomplete: "off"});
 		const columnHeader = this.createDiv({className: "column__column-header"});
-		this.tasksContainer = this.createUl({className: "column__tasks-container"});
+		const columnWrapper = this.createDiv({className: "column__wrapper"});
+		const tasksContainer = this.createUl({className: "column__tasks-container"});
 		const columnDeleteBtn = this.createButton({className: "column-header__column-delete-btn", buttonText: "X", id: "column-delete-btn"});
+		const columnName = this.createSpan({className: "column-header__column-name", text: props.colName });
+		props.tasks.forEach(element => {
+			const taskName = this.createSpan({className: "column-header__column-name", text: element});
 
+			tasksContainer.append(taskName);
+		});
+
+		
 		columnHeader.append(columnName);
 		columnHeader.append(columnDeleteBtn);
-
 		columnDiv.append(columnHeader);
-		columnDiv.append(this.tasksContainer);
-		columnDiv.append(taskAddBtn);
+		columnDiv.append(columnWrapper);
+		columnWrapper.append(tasksContainer);
+		columnWrapper.append(taskAddBtn);
 		this.columnsContainer.append(columnDiv);
 
-		taskAddBtn.addEventListener('click', this.createTaskBtn);
+
+
 		
-		return columnDiv;
+		
+		columnDeleteBtn.addEventListener("click", (event) => {
+			columnDiv.remove();
+
+		});
+		
+		
 	}
+
 	
-	createTaskBtn = () => {
-		const task = this.createLi({className: "tasks-container__task"});
-		const taskDeleteBtn = this.createButton({className: "task__task-delete-btn", buttonText: "X", id: "task-delete-btn"});
-		const taskName = this.createInput({className: "task__tazk-name", id: "task-name", autocomplete: "off"});
-
-		this.tasksContainer.append(task);
-		this.tasksContainer.append(taskDeleteBtn);
-		task.append(taskName);
-
-		return this.tasksContainer;
-	}
+	
 
  }
 
