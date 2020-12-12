@@ -4,7 +4,7 @@ class Model {
     }
 
     addColumnToDb = (colName) => {
-        const newColumn = { id: String(this.dataBase.length), colName: colName, tasks: [] };
+        const newColumn = { id: 'column' + String(this.dataBase.length), colName: colName, tasks: []};
         this.dataBase.push(newColumn);
     }
 
@@ -15,7 +15,7 @@ class Model {
     addTaskToDb = (columnId, taskName) => {
         this.dataBase.forEach(column => {
             if (columnId === column.id) {
-                const newTask = { id: String(column.tasks.length), task: taskName};
+                const newTask = { id: 'task' + String(column.tasks.length), task: taskName};
                 column.tasks.push(newTask);
             }
         });

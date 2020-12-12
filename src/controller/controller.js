@@ -16,7 +16,6 @@ class Controller {
                 this.view.createColumn(element);	
         });
     }
-
 }
 
 export default Controller;
