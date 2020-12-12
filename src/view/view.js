@@ -98,7 +98,7 @@ class View {
 		const columnDeleteBtn = this.createButton({className: "column-header__column-delete-btn", buttonText: "X", id: "column-delete-btn"});
 		const columnName = this.createSpan({className: "column-header__column-name", text: props.colName });
 		props.tasks.forEach(element => {
-			const taskName = this.createSpan({className: "column-header__column-name", text: element});
+			const taskName = this.createSpan({className: "column-header__column-name", text: element.task, id: element.id});
 
 			tasksContainer.append(taskName);
 		});
