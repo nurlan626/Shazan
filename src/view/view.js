@@ -95,7 +95,7 @@ class View {
         const columnHeader = this.createDiv({className: "column__column-header"});
         const columnWrapper = this.createDiv({className: "column__wrapper"});
         const tasksContainer = this.createUl({className: "column__tasks-container"});
-        const columnDeleteBtn = this.createButton({className: "column-header__column-delete-btn", buttonText: "X", id: "column-delete-btn"});
+		 const columnDeleteBtn = this.createButton({className: "column-header__column-delete-btn", buttonText: "X", id: "column-delete-btn"});
         const columnName = this.createSpan({className: "column-header__column-name", text: props.colName });
         props.tasks.forEach(element => {
             const taskName = this.createSpan({className: "column-header__column-name", text: element.task, id: element.id});
@@ -112,10 +112,10 @@ class View {
         columnWrapper.append(taskAddBtn);
         this.columnsContainer.append(columnDiv);
 
-        columnDeleteBtn.addEventListener("click", () => {
-            columnDiv.remove();
+      //   columnDeleteBtn.addEventListener("click", () => {
+      //       columnDiv.remove();
 
-        });
+      //   });
     
     }
 
