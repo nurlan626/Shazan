@@ -4,6 +4,7 @@ class View {
     this.taskAddBtn = null;
     this.columnAddBtn = null;
     this.mainContainer = null;
+    this.columnForm = null;
     // this.tasksContainer = null;
     this.columnsContainer = null;
     
@@ -22,12 +23,18 @@ class View {
         this.root.append(this.mainContainer);
     }
 
-    addColumn = cb =>{
+    createColForm = cb =>{
         this.columnAddBtn.addEventListener('click', () => {
             cb();
         });
     }
 
+    addColumn = cb =>{
+        this.columnForm.addEventListener('submit', event => {
+            event.preventDefault();
+            cb();
+        });
+    }
     
 
     createHeader = (text) => {
@@ -100,17 +107,19 @@ class View {
 
         props.className && (form.className = props.className);
         props.id && (form.id = props.id);
+
+        return form;
     }    
 
     createColumnForm = () => {
-        const columnForm = this.createForm({className: "columns-container__column-form"});
+        this.columnForm = this.createForm({className: "columns-container__column-form"});
         const columnName = this.createInput({className: "column-form__column-name", id: "column-name", autocomplete: "off"});
         const columnSubmitName = this.createButton({className: "column-form__column-submit", buttonText: "Create column", id: "column-submit"});
 
-        columnForm.append(columnSubmitName);
-        columnForm.append(columnName);
+        this.columnForm.append(columnName);
+        this.columnForm.append(columnSubmitName);
 
-        this.columnsContainer.append(columnForm);
+        this.columnsContainer.append(this.columnForm);
     }
 
     createTaskForm = () => {
@@ -165,7 +174,6 @@ class View {
         }
 
         area.ondrop = drop;
-
 
         function drop(event){
             event.preventDefault();

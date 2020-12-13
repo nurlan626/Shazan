@@ -6,14 +6,20 @@ class Controller {
 
    init = () => {
       this.view.init();
-      this.view.addColumn(this.showColumn.bind(this));
+      this.view.createColForm(this.showColForm.bind(this));
       this.deleteColumn();
       this.addTask();
       this.deleteTask();
    };
+
+   showColForm = () => {
+      this.view.createColumnForm();
+      this.view.addColumn(this.showColumn.bind(this));
+   }
    
    showColumn = () => {
-         this.model.addColumnToDb('column');
+         const inputValue = document.getElementById('column-name').value;
+         this.model.addColumnToDb(inputValue);
          this.getDataFromDb();
    };
 
