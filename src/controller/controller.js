@@ -2,45 +2,58 @@ class Controller {
    constructor(view, model) {
       this.view = view;
       this.model = model;
-
    }
 
    init = () => {
       this.view.init();
-      // this.model.addColumnToDb('xuyna');
-      // this.model.addColumnToDb('xuyna2');
-      this.getDataFromDb();
       this.addColumn();
-   }
+      this.deleteColumn();
+      this.addTask();
+      this.deleteTask();
+   };
+   
+   addColumn = () => {
+      this.view.columnAddBtn.addEventListener('click', event => {
+         this.model.addColumnToDb('column');
+         this.getDataFromDb();
+      });
+   };
 
    deleteColumn = () => {
-      const deleteButtons = document.querySelectorAll('.column-header__column-delete-btn');
-
-      deleteButtons.forEach(element => {
-         element.addEventListener('click', event => {
+      document.addEventListener('click', event => {
+         if (event.target.className === 'column-header__column-delete-btn') {
             this.model.delColumnFromDb(event.path[2].id);
             this.getDataFromDb();
-            console.log(event.path[2].id);
-         });
-      })
+         }
+      });
+   };
+
+   addTask = () => {
+      document.addEventListener('click', event => {
+         if (event.target.className === 'column__add-task-btn') {
+            this.model.addTaskToDb(event.path[1].id, "task");
+            this.getDataFromDb();
+         }
+      });
    }
 
-   addColumn = () => {
-         this.view.columnAddBtn.addEventListener('click', event => {
-            this.model.addColumnToDb('');
+   deleteTask = () => {
+      document.addEventListener('click', event => {
+         if (event.target.className === 'task__task-delete-btn') {
+            this.model.delTaskFromDb(event.path[3].id, event.path[1].id);
             this.getDataFromDb();
-            this.deleteColumn();
-         });
-      
-   }
+         }
+      });
+   };
 
    getDataFromDb = () => {
       this.view.columnsContainer.innerHTML = '';
       const dataFromDb = this.model.dataBase;
+      
       dataFromDb.forEach(element => {
          this.view.createColumn(element);
       });
-   }
+   };
 }
 
 export default Controller;
