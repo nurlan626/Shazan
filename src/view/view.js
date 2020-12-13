@@ -22,6 +22,14 @@ class View {
         this.root.append(this.mainContainer);
     }
 
+    addColumn = cb =>{
+        this.columnAddBtn.addEventListener('click', () => {
+            cb();
+        });
+    }
+
+    
+
     createHeader = (text) => {
         const header = this.createDiv({className: "root__header"});
         const textPlace = document.createElement("h1");
@@ -86,7 +94,28 @@ class View {
 
         return li;
     }
-    
+
+    createForm = (props) => {
+        const form = document.createElement("form");
+
+        props.className && (form.className = props.className);
+        props.id && (form.id = props.id);
+    }    
+
+    createColumnForm = () => {
+        const columnForm = this.createForm({className: "columns-container__column-form"});
+        const columnName = this.createInput({className: "column-form__column-name", id: "column-name", autocomplete: "off"});
+        const columnSubmitName = this.createButton({className: "column-form__column-submit", buttonText: "Create column", id: "column-submit"});
+
+        columnForm.append(columnSubmitName);
+        columnForm.append(columnName);
+
+        this.columnsContainer.append(columnForm);
+    }
+
+    createTaskForm = () => {
+
+    }
 
     createColumn = (props) => {
         const columnDivContainer = this.createDiv({className: "columns-container__column-place"});
