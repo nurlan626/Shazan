@@ -89,8 +89,9 @@ class View {
     
 
     createColumn = (props) => {
-        
+        const columnDivContainer = this.createDiv({className: "columns-container__column-place", id: props.id});
         const columnDiv = this.createDiv({className: "colums-container__column", id: props.id});
+        columnDiv.setAttribute("draggable", true);
         const taskAddBtn = this.createButton({className: "column__add-task-btn", buttonText: "+ Add another task", id: "add-task-btn"});
         // const columnName = this.createInput({className: "column-header__column-name", id: "column-name", autocomplete: "off"});
         const columnHeader = this.createDiv({className: "column__column-header"});
@@ -99,7 +100,7 @@ class View {
         const columnName = this.createSpan({className: "column-header__column-name", text: props.colName });
 
         props.tasks.forEach(element => {
-            const task = this.createLi({className: "tasks-container__task", id: element.id})
+            const task = this.createLi({className: "tasks-container__task", id: element.id});
             const taskText = this.createSpan({className: "task__taks-text", text: element.task});
             const taskDeleteBtn = this.createButton({className: "task__task-delete-btn", buttonText: "X", id: "text-delete-btn"});
 
@@ -114,8 +115,69 @@ class View {
         columnDiv.append(columnHeader);
         columnDiv.append(tasksContainer);
         columnDiv.append(taskAddBtn);
-        this.columnsContainer.append(columnDiv);   
-    }
+        columnDivContainer.append(columnDiv);
+        this.columnsContainer.append(columnDivContainer);
+
+
+        // columnDivContainer.ondragover = allowDrop;
+        // columnDivContainer.ondragover = allowDrop;
+        //
+        // function allowDrop(event) {
+        //     event.preventDefault();
+        // }
+        //
+        // columnDiv.ondragstart = drag;
+        // function drag(event){
+        //     event.dataTransfer.setData("id", event.target.id);
+        //     event.dataTransfer.clearData();
+        // }
+        //
+        // columnDivContainer.ondragover = drop;
+        // columnDivContainer.ondragover = drop;
+        //
+        // function drop(event) {
+        //     let saveData = event.dataTransfer.getData("id");
+        //     console.log(saveData)
+        //     event.target.append(document.getElementById(saveData));
+        // }
+
+
+
+
+        columnDivContainer.addEventListener('dragstart', dragStart);
+        columnDivContainer.addEventListener("dragend", dragEnd);
+
+            for(let colContainer of columnDivContainer) {
+                colContainer.addEventListener("dragover", dragOver);
+                colContainer.addEventListener("dragenter", dragEnter);
+                colContainer.addEventListener("dragleave", dragLeave);
+                colContainer.addEventListener("drop", drop);
+            }
+
+            function dragStart() {
+              this.classList.add("hold");
+              setTimeout(() => (this.classList.replace("hold", "invisible")),0);
+            }
+
+            function dragEnd() {
+                this.classList.remove("invisible");
+            }
+
+            function dragOver(event) {
+                event.preventDefault();
+            }
+
+            function dragEnter(event) {
+                event.preventDefault();
+                this.classList.toggle("hovered");
+            }
+            function dragLeave() {
+                this.classList.remove("hovered");
+            }
+            function drop() {
+                this.append(columnDivContainer);
+            }
+}
  }
 
 export default View;
