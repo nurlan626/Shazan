@@ -1,22 +1,25 @@
 class View {
   constructor() {
     this.root = null;
-    this.taskAddBtn = null;
+	 this.taskForm = null;
+	 this.taskAddBtn = null;
+	 this.columnForm = null;
     this.columnAddBtn = null;
-    this.mainContainer = null;
-    // this.tasksContainer = null;
-    this.columnsContainer = null;
+	 this.mainContainer = null;
+	 this.tasksContainer = null;
+	 this.columnsContainer = null;
+	 this.columnAddButtonForm = null;
     
   }
 
     init = () => {
         this.root = document.getElementById("root");
-        const header = this.createHeader("Shazan");
+		  const header = this.createHeader("Shazan");
+		  
         this.root.append(header);
         this.columnAddBtn = this.createButton({className: "main-container__add-column-btn", buttonText: "+ Add another column", id: "add-column-btn"});
         this.mainContainer = this.createDiv({className: "root__main-container"});
         this.columnsContainer = this.createDiv({className: "main-container__colums-container"});
-        
         this.mainContainer.append(this.columnsContainer);
         this.mainContainer.append(this.columnAddBtn);
         this.root.append(this.mainContainer);
@@ -24,9 +27,9 @@ class View {
 
     createHeader = (text) => {
         const header = this.createDiv({className: "root__header"});
-        const textPlace = document.createElement("h1");
+		  const textPlace = document.createElement("h1");
+		  
         textPlace.innerText = text;
-
         header.append(textPlace);
 
         return header;
@@ -85,7 +88,44 @@ class View {
         props.id && (li.id = props.id);
 
         return li;
-    }
+	 }
+	 
+	 createForm = props => {
+		const form = document.createElement("form");
+
+		props.className && (form.className = props.className);
+		props.form && (form.id = props.id);
+
+		return form;
+	 }
+	 createTextarea = props => {
+		const textarea = document.createElement("textarea");
+
+		props.className && (textarea.className = props.className);
+		props.textarea && (textarea.id = props.id);
+
+		return textarea;
+	 }
+
+	 createColumnForm = () => {
+		this.columnForm = this.createForm({className: "column__column-form", id: "column-form"});
+		const columnName = this.createInput({className: "column-form__column-name", id: "column-name", autocomplete: "off"});
+		this.columnAddButtonForm = this.createButton({className: "column-form__add-button", buttonText: "add header", id: 'add-button'});
+		
+		this.columnForm.append(columnName);
+		this.columnForm.append(this.columnAddButtonForm);
+		this.columnsContainer.append(this.columnForm);
+	 }
+
+	 createTaskForm = () => {
+		this.taskForm = this.createForm({className: "task__task-form", id: 'task-form"' });
+		const columnName = this.createTextarea({className: "task-form__task-name", id: "task-name", autocomplete: "off"});
+		const columnAddTask = this.createButton({className: "task-form__add-task-button", buttonText: "add task", id: 'add-task-button'});
+		this.taskForm.append(columnName);
+		this.taskForm.append(columnAddTask);
+		this.tasksContainer.append(this.taskForm);
+	 }
+
     
 
     createColumn = (props) => {
@@ -94,7 +134,7 @@ class View {
         const taskAddBtn = this.createButton({className: "column__add-task-btn", buttonText: "+ Add another task", id: "add-task-btn"});
         // const columnName = this.createInput({className: "column-header__column-name", id: "column-name", autocomplete: "off"});
         const columnHeader = this.createDiv({className: "column__column-header"});
-        const tasksContainer = this.createUl({className: "column__tasks-container"});
+        this.tasksContainer = this.createUl({className: "column__tasks-container"});
 		const columnDeleteBtn = this.createButton({className: "column-header__column-delete-btn", buttonText: "X", id: "column-delete-btn"});
         const columnName = this.createSpan({className: "column-header__column-name", text: props.colName });
 
@@ -105,14 +145,15 @@ class View {
 
             task.append(taskText);
             task.append(taskDeleteBtn);
-            tasksContainer.append(task);
-        });
+            this.tasksContainer.append(task);
+		  });
+
 
         
         columnHeader.append(columnName);
         columnHeader.append(columnDeleteBtn);
         columnDiv.append(columnHeader);
-        columnDiv.append(tasksContainer);
+        columnDiv.append(this.tasksContainer);
         columnDiv.append(taskAddBtn);
         this.columnsContainer.append(columnDiv);   
     }

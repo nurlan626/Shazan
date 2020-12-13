@@ -6,18 +6,37 @@ class Controller {
 
    init = () => {
       this.view.init();
-      this.addColumn();
+		this.createColumnForm();
+		// this.createTaskForm();
       this.deleteColumn();
-      this.addTask();
-      this.deleteTask();
-   };
+		this.deleteTask();
+	}
+	
+	createColumnForm = () => {
+		this.view.columnAddBtn.addEventListener('click', event => {
+			
+			this.view.createColumnForm();
+			this.addColumn();
+		});
+	}
+
+	// createTaskForm = () => {
+	// 	document.addEventListener('click', event => {
+   //       if (event.target.className === 'column__add-task-btn') {
+	// 			this.view.createTaskForm(event.target.id);
+	// 			console.log(event);
+   //       }
+   //    });
+	// }
    
    addColumn = () => {
-      this.view.columnAddBtn.addEventListener('click', event => {
-         this.model.addColumnToDb('column');
+		this.view.columnForm.addEventListener('submit', event => {
+			const inputValue = document.getElementById('column-name').value;
+			event.preventDefault();
+         this.model.addColumnToDb(inputValue);
          this.getDataFromDb();
       });
-   };
+   }
 
    deleteColumn = () => {
       document.addEventListener('click', event => {
@@ -26,7 +45,7 @@ class Controller {
             this.getDataFromDb();
          }
       });
-   };
+   }
 
    addTask = () => {
       document.addEventListener('click', event => {
@@ -44,7 +63,7 @@ class Controller {
             this.getDataFromDb();
          }
       });
-   };
+   }
 
    getDataFromDb = () => {
       this.view.columnsContainer.innerHTML = '';
@@ -53,7 +72,7 @@ class Controller {
       dataFromDb.forEach(element => {
          this.view.createColumn(element);
       });
-   };
+   }
 }
 
 export default Controller;
