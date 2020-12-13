@@ -82,6 +82,7 @@ class View {
         const li = document.createElement("li");
 
         props.className && (li.className = props.className);
+        props.id && (li.id = props.id);
 
         return li;
     }
@@ -93,35 +94,28 @@ class View {
         const taskAddBtn = this.createButton({className: "column__add-task-btn", buttonText: "+ Add another task", id: "add-task-btn"});
         // const columnName = this.createInput({className: "column-header__column-name", id: "column-name", autocomplete: "off"});
         const columnHeader = this.createDiv({className: "column__column-header"});
-        const columnWrapper = this.createDiv({className: "column__wrapper"});
         const tasksContainer = this.createUl({className: "column__tasks-container"});
-		 const columnDeleteBtn = this.createButton({className: "column-header__column-delete-btn", buttonText: "X", id: "column-delete-btn"});
+		const columnDeleteBtn = this.createButton({className: "column-header__column-delete-btn", buttonText: "X", id: "column-delete-btn"});
         const columnName = this.createSpan({className: "column-header__column-name", text: props.colName });
-        props.tasks.forEach(element => {
-            const taskName = this.createSpan({className: "column-header__column-name", text: element.task, id: element.id});
 
-            tasksContainer.append(taskName);
+        props.tasks.forEach(element => {
+            const task = this.createLi({className: "tasks-container__task", id: element.id})
+            const taskText = this.createSpan({className: "task__taks-text", text: element.task});
+            const taskDeleteBtn = this.createButton({className: "task__task-delete-btn", buttonText: "X", id: "text-delete-btn"});
+
+            task.append(taskText);
+            task.append(taskDeleteBtn);
+            tasksContainer.append(task);
         });
 
         
         columnHeader.append(columnName);
         columnHeader.append(columnDeleteBtn);
         columnDiv.append(columnHeader);
-        columnDiv.append(columnWrapper);
-        columnWrapper.append(tasksContainer);
-        columnWrapper.append(taskAddBtn);
-        this.columnsContainer.append(columnDiv);
-
-      //   columnDeleteBtn.addEventListener("click", () => {
-      //       columnDiv.remove();
-
-      //   });
-    
+        columnDiv.append(tasksContainer);
+        columnDiv.append(taskAddBtn);
+        this.columnsContainer.append(columnDiv);   
     }
-
-    
-    
-
  }
 
 export default View;
