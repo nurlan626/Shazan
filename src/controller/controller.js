@@ -10,6 +10,7 @@ class Controller {
 		// this.createTaskForm();
       this.deleteColumn();
 		this.deleteTask();
+		this.addTask();
 	}
 	
 	createColumnForm = () => {
