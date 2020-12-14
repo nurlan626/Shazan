@@ -29,14 +29,26 @@ class View {
         });
     }
 
-    addColumn = cb =>{
+    addColumnListener = cb =>{
         this.columnForm.addEventListener('submit', event => {
             event.preventDefault();
             cb();
         });
     }
 
-    addTask = cb => {
+    addTaskListener = cb => {
+        document.addEventListener('click', event => {
+            cb(event);
+         });
+    }
+
+    deleteColumnListener = cb => {
+        document.addEventListener('click', event => {
+            cb(event);
+         });
+    }
+
+    deleteTaskListener = cb => {
         document.addEventListener('click', event => {
             cb(event);
          });

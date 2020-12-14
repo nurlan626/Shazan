@@ -7,45 +7,41 @@ class Controller {
    init = () => {
       this.view.init();
       this.view.createColForm(this.showColForm.bind(this));
-      this.deleteColumn();
-      this.view.addTask(this.showTask.bind(this));
-      this.deleteTask();
+      this.view.deleteColumnListener(this.deleteColumn.bind(this));
+      this.view.addTaskListener(this.addTask.bind(this));
+      this.view.deleteTaskListener(this.deleteTask.bind(this));
    };
 
    showColForm = () => {
       this.view.createColumnForm();
-      this.view.addColumn(this.showColumn.bind(this));
+      this.view.addColumnListener(this.addColumn.bind(this));
    }
    
-   showColumn = () => {
+   addColumn = () => {
          const inputValue = document.getElementById('column-name').value;
          this.model.addColumnToDb(inputValue);
          this.getDataFromDb();
    };
 
-   deleteColumn = () => {
-      document.addEventListener('click', event => {
-         if (event.target.className === 'column-header__column-delete-btn') {
-            this.model.delColumnFromDb(event.path[2].id);
-            this.getDataFromDb();
-         }
-      });
+   deleteColumn = event => {
+      if (event.target.className === 'column-header__column-delete-btn') {
+         this.model.delColumnFromDb(event.path[2].id);
+         this.getDataFromDb();
+      }
    };
 
-   showTask = event => {
+   addTask = event => {
       if (event.target.className === 'column__add-task-btn') {
          this.model.addTaskToDb(event.path[1].id, "task");
          this.getDataFromDb();
       }
    }
 
-   deleteTask = () => {
-      document.addEventListener('click', event => {
-         if (event.target.className === 'task__task-delete-btn') {
-            this.model.delTaskFromDb(event.path[3].id, event.path[1].id);
-            this.getDataFromDb();
-         }
-      });
+   deleteTask = event => {
+      if (event.target.className === 'task__task-delete-btn') {
+         this.model.delTaskFromDb(event.path[3].id, event.path[1].id);
+         this.getDataFromDb();
+      }
    };
 
    getDataFromDb = () => {
