@@ -8,7 +8,7 @@ class Controller {
       this.view.init();
       this.view.createColForm(this.showColForm.bind(this));
       this.deleteColumn();
-      this.addTask();
+      this.view.addTask(this.showTask.bind(this));
       this.deleteTask();
    };
 
@@ -32,13 +32,11 @@ class Controller {
       });
    };
 
-   addTask = () => {
-      document.addEventListener('click', event => {
-         if (event.target.className === 'column__add-task-btn') {
-            this.model.addTaskToDb(event.path[1].id, "task");
-            this.getDataFromDb();
-         }
-      });
+   showTask = event => {
+      if (event.target.className === 'column__add-task-btn') {
+         this.model.addTaskToDb(event.path[1].id, "task");
+         this.getDataFromDb();
+      }
    }
 
    deleteTask = () => {

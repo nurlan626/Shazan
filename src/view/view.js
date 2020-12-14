@@ -5,7 +5,7 @@ class View {
     this.columnAddBtn = null;
     this.mainContainer = null;
     this.columnForm = null;
-    // this.tasksContainer = null;
+    this.tasksContainer = null;
     this.columnsContainer = null;
     
   }
@@ -34,6 +34,12 @@ class View {
             event.preventDefault();
             cb();
         });
+    }
+
+    addTask = cb => {
+        document.addEventListener('click', event => {
+            cb(event);
+         });
     }
     
 
@@ -102,6 +108,16 @@ class View {
         return li;
     }
 
+    createTextarea = (props) => {
+        const textarea = document.createElement("textarea");
+
+        props.className && (textarea.className = props.className);
+        props.id && (textarea.id = props.id);
+        props.text && (textarea.value = props.text)
+
+        return textarea;
+    }
+
     createForm = (props) => {
         const form = document.createElement("form");
 
@@ -126,61 +142,65 @@ class View {
 
     }
 
+    createTask = element => {
+        const task = this.createLi({className: "tasks-container__task", id: element.id});
+            task.setAttribute("draggable", true);
+            const taskText = this.createTextarea({className: "task__taks-text", text: element.task});
+            const taskDeleteBtn = this.createButton({className: "task__task-delete-btn", buttonText: "X", id: "text-delete-btn"});
+
+            task.append(taskText);
+            task.append(taskDeleteBtn);
+            this.tasksContainer.append(task);
+    }
+
     createColumn = (props) => {
         const columnDivContainer = this.createDiv({className: "columns-container__column-place"});
         const columnDiv = this.createDiv({className: "colums-container__column", id: props.id});
         const taskAddBtn = this.createButton({className: "column__add-task-btn", buttonText: "+ Add another task", id: "add-task-btn"});
         // const columnName = this.createInput({className: "column-header__column-name", id: "column-name", autocomplete: "off"});
         const columnHeader = this.createDiv({className: "column__column-header", id: "element"});
-        const tasksContainer = this.createUl({className: "column__tasks-container", id: props.id});
+        this.tasksContainer = this.createUl({className: "column__tasks-container", id: props.id});
 		const columnDeleteBtn = this.createButton({className: "column-header__column-delete-btn", buttonText: "X", id: "column-delete-btn"});
         const columnName = this.createSpan({className: "column-header__column-name", text: props.colName });
 
         props.tasks.forEach(element => {
-            const task = this.createLi({className: "tasks-container__task", id: element.id});
-            task.setAttribute("draggable", true);
-            const taskText = this.createSpan({className: "task__taks-text", text: element.task});
-            const taskDeleteBtn = this.createButton({className: "task__task-delete-btn", buttonText: "X", id: "text-delete-btn"});
-
-            task.append(taskText);
-            task.append(taskDeleteBtn);
-            tasksContainer.append(task);
+            this.createTask(element);
         });
 
         
         columnHeader.append(columnName);
         columnHeader.append(columnDeleteBtn);
         columnDiv.append(columnHeader);
-        columnDiv.append(tasksContainer);
+        columnDiv.append(this.tasksContainer);
         columnDiv.append(taskAddBtn);
         columnDivContainer.append(columnDiv);
         this.columnsContainer.append(columnDivContainer);
 
 
-        const area = document.getElementById(props.id);
-        const dragElement = document.getElementById(props.id);
+    //     const area = document.getElementById(props.id);
+    //     const dragElement = document.getElementById(props.id);
 
-        area.ondragover = allowDrop;
+    //     area.ondragover = allowDrop;
 
 
-        function allowDrop(event){
-            event.preventDefault();
-        }
+    //     function allowDrop(event){
+    //         event.preventDefault();
+    //     }
 
-        dragElement.ondragstart = drag;
+    //     dragElement.ondragstart = drag;
 
-        function drag(event){
-            event.dataTransfer.setData("text",event.target.id);
-        }
+    //     function drag(event){
+    //         event.dataTransfer.setData("text",event.target.id);
+    //     }
 
-        area.ondrop = drop;
+    //     area.ondrop = drop;
 
-        function drop(event){
-            event.preventDefault();
-            let saveData = event.dataTransfer.getData("text");
-            event.target.appendChild(document.getElementById(saveData))
-        }
-    }
+    //     function drop(event){
+    //         event.preventDefault();
+    //         let saveData = event.dataTransfer.getData("text");
+    //         event.target.appendChild(document.getElementById(saveData))
+    //     }
+     }
 }
 
 export default View;
