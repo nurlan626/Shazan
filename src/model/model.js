@@ -15,8 +15,20 @@ class Model {
     addTaskToDb = (columnId, taskName) => {
         this.dataBase.forEach(column => {
             if (columnId === column.id) {
-                const newTask = { id: 'task' + String(column.tasks.length), task: taskName};
+                const newTask = { id: columnId + 'Task' + String(column.tasks.length), taskName: taskName};
                 column.tasks.push(newTask);
+            }
+        });
+    }
+
+    changeTaskName = (columnId, taskId, newTaskName) => {
+        this.dataBase.forEach(column => {
+            if (columnId === column.id) {
+                column.forEach(task => {
+                    if (taskId === task.id){
+                        task.taskName = newTaskName;
+                    }
+                })
             }
         });
     }
@@ -28,6 +40,7 @@ class Model {
             }
         });
     }
+
 }
 
 export default Model;
