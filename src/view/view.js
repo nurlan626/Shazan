@@ -1,7 +1,6 @@
 class View {
   constructor() {
     this.root = null;
-    this.taskAddBtn = null;
     this.columnAddBtn = null;
     this.mainContainer = null;
     this.columnForm = null;
@@ -23,7 +22,7 @@ class View {
         this.root.append(this.mainContainer);
     }
 
-    createColForm = cb =>{
+    addColumnFormListener = cb =>{
         this.columnAddBtn.addEventListener('click', () => {
             cb();
         });
@@ -36,7 +35,26 @@ class View {
         });
     }
 
+    addTaskFormListener = cb => {
+        document.addEventListener('click', event => {
+            cb(event);
+         });
+    }
+    
+    // changeTaskNameListener = cb =>{
+    //     this.taskForm.addEventListener('submit', event => {
+    //         event.preventDefault();
+    //         cb();
+    //     });
+    // }
+
     addTaskListener = cb => {
+        document.addEventListener('submit', event => {
+            cb(event);
+         });
+    }
+
+    addTaskFormListener = cb => {
         document.addEventListener('click', event => {
             cb(event);
          });
@@ -54,7 +72,6 @@ class View {
          });
     }
     
-
     createHeader = (text) => {
         const header = this.createDiv({className: "root__header"});
         const textPlace = document.createElement("h1");
@@ -88,6 +105,9 @@ class View {
 
         props.className && (input.className = props.className);
         props.id && (input.id = props.id);
+        props.text && (input.value = props.text)
+        props.type && (input.type = props.type)
+        props.required && (input.required = props.required);
         props.autocomplete && (input.autocomplete = props.autocomplete)
 
         return input;
@@ -141,7 +161,7 @@ class View {
 
     createColumnForm = () => {
         this.columnForm = this.createForm({className: "columns-container__column-form"});
-        const columnName = this.createInput({className: "column-form__column-name", id: "column-name", autocomplete: "off"});
+        const columnName = this.createInput({className: "column-form__column-name", id: "column-name", autocomplete: "off", required: true});
         const columnSubmitName = this.createButton({className: "column-form__column-submit", buttonText: "Create column", id: "column-submit"});
 
         this.columnForm.append(columnName);
@@ -151,18 +171,26 @@ class View {
     }
 
     createTaskForm = () => {
+        this.taskForm = this.createForm({className: "tasks-container__column-form"});
+        const taskName = this.createInput({className: "column-form__column-name", id: "task-name", autocomplete: "off", required: true});
+        const taskSubmitName = this.createButton({className: "column-form__column-submit", buttonText: "Create column", id: "column-submit"});
 
+        this.taskForm.append(taskName);
+        this.taskForm.append(taskSubmitName);
+
+        return this.taskForm;
     }
+
 
     createTask = element => {
         const task = this.createLi({className: "tasks-container__task", id: element.id});
-            task.setAttribute("draggable", true);
-            const taskText = this.createTextarea({className: "task__taks-text", text: element.task});
-            const taskDeleteBtn = this.createButton({className: "task__task-delete-btn", buttonText: "X", id: "text-delete-btn"});
+        task.setAttribute("draggable", true);
+        const taskText = this.createSpan({className: "task__taks-text", text: element.taskName});
+        const taskDeleteBtn = this.createButton({className: "task__task-delete-btn", buttonText: "X", id: "text-delete-btn"});
 
-            task.append(taskText);
-            task.append(taskDeleteBtn);
-            this.tasksContainer.append(task);
+        task.append(taskText);
+        task.append(taskDeleteBtn);
+        this.tasksContainer.append(task);
     }
 
     createColumn = (props) => {

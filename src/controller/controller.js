@@ -6,19 +6,23 @@ class Controller {
 
    init = () => {
       this.view.init();
-      this.view.createColForm(this.showColForm.bind(this));
+      this.view.addColumnFormListener(this.addColumnForm.bind(this));
       this.view.deleteColumnListener(this.deleteColumn.bind(this));
-      this.view.addTaskListener(this.addTask.bind(this));
+      this.view.addTaskFormListener(this.addTaskForm.bind(this));
       this.view.deleteTaskListener(this.deleteTask.bind(this));
    };
 
-   showColForm = () => {
-      this.view.createColumnForm();
-      this.view.addColumnListener(this.addColumn.bind(this));
+   addColumnForm = () => {
+      const inputValue = document.getElementById('column-name')
+      if(!inputValue){
+         this.view.createColumnForm();
+         this.view.addColumnListener(this.addColumn.bind(this));
+      }
    }
    
    addColumn = () => {
          const inputValue = document.getElementById('column-name').value;
+
          this.model.addColumnToDb(inputValue);
          this.getDataFromDb();
    };
@@ -31,9 +35,26 @@ class Controller {
    };
 
    addTask = event => {
-      if (event.target.className === 'column__add-task-btn') {
-         this.model.addTaskToDb(event.path[1].id, "task");
-         this.getDataFromDb();
+      const inputValue = document.getElementById('task-name').value;
+      
+      console.log(inputValue)
+      console.log(this.model.dataBase)
+      this.model.addTaskToDb(event.path[2].id, inputValue);
+      this.getDataFromDb();
+   }
+
+   addTaskForm = (event) => {
+      const inputValue = document.getElementById('task-name')
+      if(!inputValue){
+         if (event.target.className === 'column__add-task-btn') { 
+
+            const taskForm = this.view.createTaskForm();
+            const currentColumn = document.getElementById(event.path[1].id);
+            const currentTaskCintainer = currentColumn.querySelector(".column__tasks-container");
+
+            currentTaskCintainer.append(taskForm);
+            this.view.addTaskListener(this.addTask.bind(this));
+         }
       }
    }
 
