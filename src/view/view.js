@@ -10,8 +10,8 @@ class View {
   }
 
     init = () => {
-        this.root = document.getElementById("root");
-        const header = this.createHeader("Shazan");
+        this.root = document.getElementById("root")
+        const header = this.createHeader("Shazan")
         this.root.append(header);
         this.columnAddBtn = this.createButton({className: "main-container__add-column-btn", buttonText: "+ Add another column", id: "add-column-btn"});
         this.mainContainer = this.createDiv({className: "root__main-container"});
