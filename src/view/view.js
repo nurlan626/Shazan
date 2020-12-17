@@ -162,7 +162,7 @@ class View {
     createColumnForm = () => {
         this.columnForm = this.createForm({className: "columns-container__column-form"});
         const columnName = this.createInput({className: "column-form__column-name", id: "column-name", autocomplete: "off", required: true});
-        const columnSubmitName = this.createButton({className: "column-form__column-submit", buttonText: "Create column", id: "column-submit"});
+        const columnSubmitName = this.createButton({className: "column-form__column-submit", buttonText: "Save", id: "column-submit"});
 
         this.columnForm.append(columnName);
         this.columnForm.append(columnSubmitName);
@@ -171,9 +171,9 @@ class View {
     }
 
     createTaskForm = () => {
-        this.taskForm = this.createForm({className: "tasks-container__column-form"});
-        const taskName = this.createInput({className: "column-form__column-name", id: "task-name", autocomplete: "off", required: true});
-        const taskSubmitName = this.createButton({className: "column-form__column-submit", buttonText: "Create column", id: "column-submit"});
+        this.taskForm = this.createForm({className: "tasks-container__task-form"});
+        const taskName = this.createInput({className: "task-form__task-name", id: "task-name", autocomplete: "off", required: true});
+        const taskSubmitName = this.createButton({className: "task-form__task-submit", buttonText: "Save", id: "task-submit"});
 
         this.taskForm.append(taskName);
         this.taskForm.append(taskSubmitName);

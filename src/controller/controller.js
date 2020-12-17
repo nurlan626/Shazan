@@ -37,25 +37,21 @@ class Controller {
    addTask = event => {
       const inputValue = document.getElementById('task-name').value;
       
-      console.log(inputValue)
-      console.log(this.model.dataBase)
       this.model.addTaskToDb(event.path[2].id, inputValue);
       this.getDataFromDb();
    }
 
    addTaskForm = (event) => {
-      const inputValue = document.getElementById('task-name')
-      if(!inputValue){
-         if (event.target.className === 'column__add-task-btn') { 
+      const inputValue = document.getElementById('task-name');
 
-            const taskForm = this.view.createTaskForm();
-            const currentColumn = document.getElementById(event.path[1].id);
-            const currentTaskCintainer = currentColumn.querySelector(".column__tasks-container");
+      if (event.target.className === 'column__add-task-btn' && !inputValue) { 
+         const taskForm = this.view.createTaskForm();
+         const currentColumn = document.getElementById(event.path[1].id);
+         const currentTaskCintainer = currentColumn.querySelector(".column__tasks-container");
 
-            currentTaskCintainer.append(taskForm);
-            this.view.addTaskListener(this.addTask.bind(this));
-         }
-      }
+         currentTaskCintainer.append(taskForm);
+         this.view.addTaskListener(this.addTask.bind(this));
+      }     
    }
 
    deleteTask = event => {
