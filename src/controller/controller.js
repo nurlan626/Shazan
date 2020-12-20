@@ -37,8 +37,6 @@ class Controller {
    addTask = event => {
       const inputValue = document.getElementById('task-name').value;
       
-      console.log(inputValue)
-      console.log(this.model.dataBase)
       this.model.addTaskToDb(event.path[2].id, inputValue);
       this.getDataFromDb();
    }
