@@ -1,6 +1,7 @@
 class View {
   constructor() {
     this.root = null;
+    this.task = null;
     this.columnAddBtn = null;
     this.mainContainer = null;
     this.columnForm = null;
@@ -20,6 +21,7 @@ class View {
         this.mainContainer.append(this.columnsContainer);
         this.mainContainer.append(this.columnAddBtn);
         this.root.append(this.mainContainer);
+        
     }
 
     addColumnFormListener = cb =>{
@@ -137,6 +139,7 @@ class View {
         props.className && (li.className = props.className);
         props.id && (li.id = props.id);
 
+
         return li;
     }
 
@@ -183,14 +186,16 @@ class View {
 
 
     createTask = element => {
-        const task = this.createLi({className: "tasks-container__task", id: element.id});
-        task.setAttribute("draggable", true);
+        this.task = this.createLi({className: "tasks-container__task", id: element.id});
+        this.task.setAttribute("draggable", true);
         const taskText = this.createSpan({className: "task__taks-text", text: element.taskName});
         const taskDeleteBtn = this.createButton({className: "task__task-delete-btn", buttonText: "X", id: "text-delete-btn"});
 
-        task.append(taskText);
-        task.append(taskDeleteBtn);
-        this.tasksContainer.append(task);
+        this.task.append(taskText);
+        this.task.append(taskDeleteBtn);
+        this.tasksContainer.append(this.task);
+        this.dragStart(this.task);
+        
     }
 
     createColumn = (props) => {
@@ -198,7 +203,7 @@ class View {
         const columnDiv = this.createDiv({className: "colums-container__column", id: props.id});
         const taskAddBtn = this.createButton({className: "column__add-task-btn", buttonText: "+ Add another task", id: "add-task-btn"});
         const columnHeader = this.createDiv({className: "column__column-header", id: "element"});
-        this.tasksContainer = this.createUl({className: "column__tasks-container", id: props.id});
+        this.tasksContainer = this.createUl({className: "column__tasks-container"});
 		const columnDeleteBtn = this.createButton({className: "column-header__column-delete-btn", buttonText: "X", id: "column-delete-btn"});
         const columnName = this.createSpan({className: "column-header__column-name", text: props.colName });
 
@@ -215,31 +220,35 @@ class View {
         columnDivContainer.append(columnDiv);
         this.columnsContainer.append(columnDivContainer);
 
-
-    //     const area = document.getElementById(props.id);
-    //     const dragElement = document.getElementById(props.id);
-
-    //     area.ondragover = allowDrop;
-
-
-    //     function allowDrop(event){
-    //         event.preventDefault();
-    //     }
-
-    //     dragElement.ondragstart = drag;
-
-    //     function drag(event){
-    //         event.dataTransfer.setData("text",event.target.id);
-    //     }
-
-    //     area.ondrop = drop;
-
-    //     function drop(event){
-    //         event.preventDefault();
-    //         let saveData = event.dataTransfer.getData("text");
-    //         event.target.appendChild(document.getElementById(saveData))
-    //     }
+        this.dragOver();
+        this.dragDrop();
      }
+      
+     dragStart = (task) => {
+        this.current;
+        task.addEventListener('dragstart', () => {
+            this.current = task;
+        });
+    }
+        
+    dragOver = () => {
+        this.tasksContainer.addEventListener('dragover', event => {
+            event.preventDefault();
+        });
+    }
+
+    dragDrop = () => {
+        this.currentUl;
+        const tasksConstainer = document.querySelectorAll(".column__tasks-container");
+
+        tasksConstainer.forEach( taskContainer => {
+            taskContainer.addEventListener('drop', () => {
+                this.currentUl = taskContainer;
+
+                taskContainer.append(this.current);
+            });
+        });
+    }
 }
 
 export default View;
