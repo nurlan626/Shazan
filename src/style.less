@@ -1,7 +1,13 @@
+@font-face {
+    font-family: 'shazan';
+    src: url('fonts/shazan.ttf') format('truetype');
+}
+
 body{
     padding: 0;
     margin: 0;
 }
+
 .root__header{
     display: flex;
     justify-content: center;
@@ -9,19 +15,31 @@ body{
     background: #a000a0;
     color: white;
     font-size: 25px;
+    width: 100%;
 }
 
 .root__header h1{
     margin: 10px;
+    font-family: 'shazan';
 }
 
+
 .root__main-container{
-    display: flex;
-    align-items: center;
+    margin-top: 50px;
+    display:flex;
+    overflow: auto;
+    height: 100vh;
 }
 
 .main-container__colums-container{
-    display: flex;   
+    display:flex;
+}
+
+.column-form__column-submit{
+    font-size: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    font-family: 'shazan';
+    height: 25px;
 }
 
 .colums-container__column {
@@ -31,54 +49,156 @@ body{
     justify-content: center;
     padding-top: 10px;
     padding-bottom: 10px;
-    margin: 30px;
+    margin-left: 30px;
     width: 250px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     border-radius: 10px;
     background: #a000a0;
+    font-family: 'shazan';
+    
+}
+
+.column__column-header{
+    display: flex;
+    justify-content: space-between;
+    width: 230px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+    color: white;
+}
+
+.column-header__column-delete-btn{
+    background: none;
 }
 
 .main-container__add-column-btn{
-    background: #a000a0;
     height: 50px;
+    min-width: 250px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     border-radius: 10px;
     border: none;
     outline: none;
     cursor: pointer;
-    color: white;
     font-size: 20px;
+    margin-left: 30px;
+    font-family: 'shazan';
+}
+
+button:hover {
+    background-color: #c502c5;
+}
+
+button:active {
+    background-color: #8b038b;
+}
+
+.columns-container__column-form {
+    text-align: center;
+    margin-left: 30px;
+    height: 150px;
+    width: 200px;
+}
+
+.tasks-container__task-form {
+    text-align: center;
+    font-family: 'shazan';
+}
+
+input {
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    font-size: 15px;
+    width: 150px;
+    margin: 5px;
+    font-family: 'shazan';
+}
+
+button {
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background: #a000a0;
+    color: white;
 }
 
 .tasks-container__task{
+    display: flex;
+    justify-content: space-between;
     list-style-type: none;
+    border: white 2px dashed;
+    margin: 5px;
+    width: 200px;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+.tasks-container__task:hover{
+    background-color: #c502c5;
+}
+
+.tasks-container__task:active{
+    background-color: #8b038b;
 }
 
 .column__tasks-container{
     padding-left: 0;
+    font-family: 'shazan';
+    width: 220px;
+    min-height: 30px;
+}
+
+.task-form__task-submit{
+    background-color: white;
+    color: #a000a0;
+    font-size: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    height: 25px;
+    font-family: 'shazan';
+}
+
+.task-form__task-submit:hover{
+    background-color: rgba(255, 255, 255, 0.911);
+}
+
+.task-form__task-submit:active{
+    background-color: rgba(255, 255, 255, 0.747);
 }
 
 .column__add-task-btn {
-    width: fit-content;
-    cursor: pointer;
+    background-color: white;
+    color: #a000a0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    font-size: 15px;
+    font-family: 'shazan';
+}
+
+.column__add-task-btn:hover{
+    background-color: rgba(255, 255, 255, 0.911);
+}
+
+.column__add-task-btn:active{
+    background-color: rgba(255, 255, 255, 0.747);
 }
 
 .column-header__column-delete-btn{
-    margin-left: 30px;
+    margin-left: 30px; 
+    background: none;
+    color: white;
+    font-size: 20px;
+}
+
+.task__taks-text{
+    margin-left: 3px;
 }
 
 .task__task-delete-btn{
     margin-left: 30px; 
-}
-
-.hide {
-     border: 2px solid blue;
- }
-
-.invisible {
-    display: none;
-}
-
-.hovered {
-    background: gray;
+    background: none;
+    color: white;
+    font-size: 15px;
 }
