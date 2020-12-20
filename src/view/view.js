@@ -197,7 +197,6 @@ class View {
         const columnDivContainer = this.createDiv({className: "columns-container__column-place"});
         const columnDiv = this.createDiv({className: "colums-container__column", id: props.id});
         const taskAddBtn = this.createButton({className: "column__add-task-btn", buttonText: "+ Add another task", id: "add-task-btn"});
-        // const columnName = this.createInput({className: "column-header__column-name", id: "column-name", autocomplete: "off"});
         const columnHeader = this.createDiv({className: "column__column-header", id: "element"});
         this.tasksContainer = this.createUl({className: "column__tasks-container", id: props.id});
 		const columnDeleteBtn = this.createButton({className: "column-header__column-delete-btn", buttonText: "X", id: "column-delete-btn"});
